@@ -1,4 +1,4 @@
-package com.abernathyclinic.microservicepatients.configuration;
+package com.abernathyclinic.apipatients.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,8 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.ecommerce.micrommerce.web"))
-				.paths(PathSelectors.regex("/Produits.*"))
+				.apis(RequestHandlerSelectors.basePackage("com.abernathyclinic.apipatients"))
+				.paths(PathSelectors.regex("/patient.*"))
 				.build();
 	}
 }

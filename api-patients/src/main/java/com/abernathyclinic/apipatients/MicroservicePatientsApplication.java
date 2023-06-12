@@ -1,4 +1,4 @@
-package com.abernathyclinic.microservicepatients;
+package com.abernathyclinic.apipatients;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
