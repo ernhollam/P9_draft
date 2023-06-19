@@ -25,13 +25,14 @@ public class PatientService {
 
     /**
      * Saves new patient to database
+     *
      * @param patient Patient to save
      * @return Patient with ID if no error
      * @throws AlreadyExistsException Exception thrown when the patient to be created already exists in database
      */
     @Transactional
     public Patient createPatient(Patient patient) {
-        if (patientRepository.existsById(patient.getId())) {
+        if (patientRepository.findByFamilyAndGivenAndDob(patient.getFamily(), patient.getGiven(), patient.getDob()).isPresent()) {
             String alreadyExistsErrorMessage = "Patient " + patient.getFamily() + " " + patient.getGiven() + ", born the " + patient.getDob() + " already exists.";
             log.error(alreadyExistsErrorMessage);
             throw new AlreadyExistsException(alreadyExistsErrorMessage);
@@ -54,6 +55,13 @@ public class PatientService {
         return patientRepository.findById(id);
     }
 
+
+    /**
+     * Updates a patient.
+     *
+     * @param patient Patient to be updated
+     * @return updated patient
+     */
     public Patient updatePatient(Patient patient) {
         Assert.notNull(patient, "Please provide a Patient to update");
         if (patientRepository.existsById(patient.getId())) {
@@ -65,6 +73,7 @@ public class PatientService {
             throw new PatientNotFoundException(patientNotFoundErrorMessage);
         }
     }
+
     /**
      * Deletes a patient if exists. Throws PatientNotFoundException if the provided patient does not exist in database.
      *
