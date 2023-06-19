@@ -39,13 +39,13 @@ public class PatientRestController {
     @GetMapping("/{id}")
     public Patient getPatient(@PathVariable String id) {
         return patientService.getPatientById(Integer.valueOf(id))
-                .orElseThrow(() -> new PatientNotFoundException("Patient with provided ID does not exist."));
+                .orElseThrow(() -> new PatientNotFoundException("Patient with the provided ID does not exist."));
     }
 
     @PutMapping("/{id}")
     public Patient updatePatient(@PathVariable String id, @RequestBody Patient patient) {
         if (patientService.getPatientById(Integer.valueOf(id)).isEmpty()) {
-            throw new PatientNotFoundException("Patient with provided ID does not exist.");
+            throw new PatientNotFoundException("Patient with the provided ID does not exist.");
         }
         return patientService.updatePatient(patient);
     }
@@ -55,7 +55,7 @@ public class PatientRestController {
     public void deletePatient(@PathVariable String id) {
         Assert.notNull(id, "ID must not be empty");
         if (patientService.getPatientById(Integer.valueOf(id)).isEmpty()) {
-            throw new PatientNotFoundException("Patient with provided ID does not exist.");
+            throw new PatientNotFoundException("Patient with the provided ID does not exist.");
         }
         patientService.deletePatient(patientService.getPatientById(Integer.valueOf(id)).get());
     }
