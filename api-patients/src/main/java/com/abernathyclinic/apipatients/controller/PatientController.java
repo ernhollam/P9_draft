@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -92,7 +93,7 @@ public class PatientController {
      * @param redirectAttributes redirection attributes, contains success popup
      * @return list of patients if update is successful, update patient page otherwise
      */
-    @PostMapping("/patient/update/{id}")
+    @PutMapping("/patient/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, @Valid Patient patient,
                                 BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         // check required fields
