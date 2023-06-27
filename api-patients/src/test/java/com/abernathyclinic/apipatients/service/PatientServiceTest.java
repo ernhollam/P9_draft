@@ -64,7 +64,7 @@ class PatientServiceTest {
     @Test
     @DisplayName("Registering a patient who already exists should throw AlreadyExistException")
     void createPatient_whoAlreadyExists_shouldThrow_AlreadyExistException() {
-        when(patientRepository.existsById(any(Integer.class))).thenReturn(true);
+        when(patientRepository.findByFamilyAndGivenAndDob(any(String.class), any(String.class), any(LocalDate.class))).thenReturn(Optional.of(testNone));
         assertThrows(AlreadyExistsException.class, () -> patientService.createPatient(testNone));
 
     }

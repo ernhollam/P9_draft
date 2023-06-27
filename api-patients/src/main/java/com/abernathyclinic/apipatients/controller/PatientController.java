@@ -1,5 +1,7 @@
 package com.abernathyclinic.apipatients.controller;
 
+import com.abernathyclinic.apipatients.exceptions.AlreadyExistsException;
+import com.abernathyclinic.apipatients.exceptions.PatientNotFoundException;
 import com.abernathyclinic.apipatients.model.Patient;
 import com.abernathyclinic.apipatients.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -56,9 +57,13 @@ public class PatientController {
     @PostMapping("/patient/add")
     public String addPatient(@Valid Patient patient, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (!result.hasErrors()) {
-            patientService.createPatient(patient);
-            redirectAttributes.addFlashAttribute("success", "Patient " + patient.getFamily() + " " + patient.getGiven() + " was successfully created.");
-            model.addAttribute("patients", patientService.getPatients());
+            try {
+                patientService.createPatient(patient);
+                redirectAttributes.addFlashAttribute("success", "Patient " + patient.getFamily() + " " + patient.getGiven() + " was successfully created.");
+                model.addAttribute("patients", patientService.getPatients());
+            } catch (AlreadyExistsException alreadyExistsException) {
+                redirectAttributes.addFlashAttribute("error", "Error while trying to add patient " + patient.getFamily() + " " + patient.getGiven() + ":\n"+ alreadyExistsException.getMessage());
+            }
             // redirect to list of patients page
             return "redirect:/patient/list";
         }
@@ -93,7 +98,7 @@ public class PatientController {
      * @param redirectAttributes redirection attributes, contains success popup
      * @return list of patients if update is successful, update patient page otherwise
      */
-    @PutMapping("/patient/update/{id}")
+    @PostMapping("/patient/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, @Valid Patient patient,
                                 BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         // check required fields
@@ -104,10 +109,12 @@ public class PatientController {
         }
         // if valid call service to update Patient
         patient.setId(id);
-        patientService.updatePatient(patient);
-        // add redirect message
-        redirectAttributes.addFlashAttribute("success", "Patient " + patient.getFamily() + " " + patient.getGiven() + " was successfully updated.");
-        // update list and return list Patient
+        try {
+            patientService.updatePatient(patient);
+            redirectAttributes.addFlashAttribute("success", "Patient " + patient.getFamily() + " " + patient.getGiven() + " was successfully updated.");
+        } catch (PatientNotFoundException notFoundException) {
+            redirectAttributes.addFlashAttribute("error", "Error while trying to update patient " + patient.getFamily() + " " + patient.getGiven() + ":\n"+ notFoundException.getMessage());
+        }
         model.addAttribute("patients", patientService.getPatients());
         return "redirect:/patient/list";
     }
