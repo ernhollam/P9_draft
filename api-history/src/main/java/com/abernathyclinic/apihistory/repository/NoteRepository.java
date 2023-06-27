@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NoteRepository extends MongoRepository<String, Note> {
+public interface NoteRepository extends MongoRepository<Note, String> {
     List<Note> findByPatId(Integer patId);
 }
