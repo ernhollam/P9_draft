@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="fragments :: links(~{ :: title})">
+    <title th:text="'Update patient ' + ${patient.family} + ' ' + ${patient.given}">Update patient</title>
+</head>
+<body>
+<nav th:insert="fragments :: navbar"></nav>
+
+<div th:insert="fragments::card_template('Update patient ' + ${patient.family} + ' ' + ${patient.given}, ~{:: .form-content})">
+    <section class="form-content">
+    <form id="update-patient-form" action="#" th:action="@{/patient/update/{id}(id=${patient.id})}" method="post" th:object="${patient}">
+        <div th:replace="fragments::patient-form"></div>
+        <div th:replace="fragments::submit-buttons"></div>
+    </form>
+    </section>
+</div>
+
+<footer th:insert="fragments::footer"></footer>
+</body>
+</html>

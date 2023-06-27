@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="EN">
+<head>
+    <title>Patients list</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<!--Navigation bar-->
+<nav th:insert="fragments :: navbar"></nav>
+
+<!--Form-->
+<!--<div th:insert="fragments :: card_template('Patients', ~{ :: .card-content})">-->
+    <section class="card-content">
+        <table class="table table-hover">
+            <thead class="text-white mt-2" style="background-color: #1a8a9f">
+            <tr>
+                <th>Last name</th>
+                <th>First name</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient: ${patients}">
+                <td th:text="${patient.family}">Doe</td>
+                <td th:text="${patient.given}">Jane</td>
+                <td th:text="${patient.dob}">2000-01-01</td>
+                <td th:text="${patient.sex}">F</td>
+                <td th:text="${patient.address}">1, Example St.</td>
+                <td th:text="${patient.phone}">100-200-3000</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        <a th:href="@{/patient/update/{id}(id=${patient.id})}"
+                           class="btn text-white col-4" style="background-color:#5da1b4">Edit</a>
+
+                        <a th:href="@{/patient/delete/{id}(id=${patient.id})}"
+                           class="btn text-white col-4" style="background-color:#e96f52">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div th:if="${patients.isEmpty()}" class="alert alert-info text-center">There are no patients
+                        registered
+                    </div>
+                </td>
+                <td>
+                    <a th:href="@{/patient/add}" class="btn col text-white" style="background-color: #1a8a9f">Add
+                        new patient</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+<!--</div>-->
+
+<!--Footer-->
+<footer th:insert="fragments :: footer"></footer>
+
+</body>
+</html>
