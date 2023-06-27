@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-    <!--Birthday and gender-->
+    <!--Birthday and sex-->
     <div class="row">
         <div class="col-md-6 mb-4 d-flex align-items-center">
             <div class="form-outline datepicker w-100">
@@ -102,27 +102,27 @@
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <h6 class="mb-2 pb-1">Gender</h6>
+            <h6 class="mb-2 pb-1">sex</h6>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender"
-                       id="femaleGender"
-                       th:field="*{gender}"
+                <input class="form-check-input" type="radio" name="sex"
+                       id="femalesex"
+                       th:field="*{sex}"
                        value="F"/>
                 <label class="form-check-label"
-                       for="femaleGender">Female</label>
+                       for="femalesex">Female</label>
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender"
-                       id="maleGender"
-                       th:field="*{gender}"
+                <input class="form-check-input" type="radio" name="sex"
+                       id="malesex"
+                       th:field="*{sex}"
                        value="M"/>
                 <label class="form-check-label"
-                       for="maleGender">Male</label>
+                       for="malesex">Male</label>
             </div>
             <div class="text-danger"
-                 th:if="${#fields.hasErrors('gender')}"
-                 th:errors="*{gender}"></div>
+                 th:if="${#fields.hasErrors('sex')}"
+                 th:errors="*{sex}"></div>
         </div>
     </div>
     <!--Address-->

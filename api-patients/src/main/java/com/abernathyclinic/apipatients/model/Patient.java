@@ -35,13 +35,13 @@ public class Patient {
     @Size(max = 50, message = "Maximum of {max} characters")
     @NotBlank(message = "First name is mandatory")
     private String given;
-    @Column(name = "date_of_birth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     @Size(max = 1, message = "Maximum of {max} character, select either Male or Female")
-    private String gender;
+    @Pattern(regexp = "[MF]")
+    private String sex;
     @Size(max = 50, message = "Maximum of {max} characters")
     private String address;
-    @Pattern(regexp = "^([0-9]{3}-[0-9]{3}-[0-9]{4})?$", message = "Phone number must be in 123-456-7890 format")
+    @Pattern(regexp = "^([0-9]{3}\\-[0-9]{3}\\-[0-9]{4})?$", message = "Phone number must be in 123-456-7890 format")
     private String phone;
 }
