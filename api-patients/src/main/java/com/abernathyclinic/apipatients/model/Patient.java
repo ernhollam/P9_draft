@@ -42,6 +42,6 @@ public class Patient {
     private String sex;
     @Size(max = 50, message = "Maximum of {max} characters")
     private String address;
-    @Pattern(regexp = "^([0-9]{3}\\-[0-9]{3}\\-[0-9]{4})?$", message = "Phone number must be in 123-456-7890 format")
+    @Pattern(regexp = "^([0-9]{3}-[0-9]{3}-[0-9]{4})?$", message = "Phone number must be in 123-456-7890 format")
     private String phone;
 }

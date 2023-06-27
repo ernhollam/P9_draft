@@ -34,7 +34,7 @@
 <!-- display alert if an error occurred-->
 <div th:fragment="alert" class="col">
     <div th:if="${error}"
-         class="col-8 mx-auto alert alert-dismissible fade show bg-danger bg-gradient-lg text-white"
+         class="col-8 mx-auto alert alert-danger alert-dismissible fade show"
          role="alert">
         <h5 class="alert-heading">An error occurred:</h5>
         <p th:text="${error}">Error message
@@ -43,7 +43,7 @@
             </button>
     </div>
     <div th:if="${success}"
-         class="col-8 mx-auto alert alert-dismissible fade show bg-success bg-lighten-xl text-white"
+         class="col-8 mx-auto alert alert-success alert-dismissible fade show"
          role="alert">
         <h5 class="alert-heading">Success</h5>
         <p th:text="${success}">Success message!
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <h6 class="mb-2 pb-1">sex</h6>
+            <h6 class="mb-2 pb-1">Gender</h6>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="sex"
                        id="femalesex"
@@ -142,6 +142,7 @@
         <input type="text" id="phone"
                class="form-control"
                placeholder="000-000-0000"
+               pattern="([0-9]{3}-[0-9]{3}-[0-9]{4})?"
                th:field="*{phone}"/>
         <div class="text-danger"
              th:if="${#fields.hasErrors('phone')}"
@@ -155,9 +156,7 @@
        th:href="@{/patient/list}">
         Cancel
     </a>
-    <button type="button" class="btn col m-3 text-white" style="background-color: #1a8a9f">
-        Submit
-    </button>
+    <input type="submit" class="btn col m-3 text-white" style="background-color: #1a8a9f" value="Submit">
 </div>
 <!--Footer-->
 <div th:fragment="footer" class="sticky-bottom text-center text-black p-2">
