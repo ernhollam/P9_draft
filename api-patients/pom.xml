@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.abernathyclinic</groupId>
-	<artifactId>api-patients</artifactId>
+	<artifactId>patients</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microservice-patients</name>
 	<description>Patients microservice for the Abernathy Clinic project</description>
